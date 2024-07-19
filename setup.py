@@ -37,7 +37,6 @@ setup(
         "version_scheme": version_scheme,
         "local_scheme": "no-local-version",
     },
-    use_scm_version=True,
     setup_requires=["setuptools", "setuptools_scm"],
     packages=find_packages(where="ratchada_utils"),
     package_dir={"": "ratchada_utils"},
