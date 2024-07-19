@@ -68,7 +68,7 @@ setup(
     ],
     package_data={"ratchada_utils": ["test/*.doctest", "VERSION"]},
     python_requires=">=3.10, <3.12",
-    install_requires=parse_requirements("./requirements.txt"),
+    install_requires=parse_requirements("requirements.txt"),
     zip_safe=False,
     entry_points={
         "console_scripts": [
