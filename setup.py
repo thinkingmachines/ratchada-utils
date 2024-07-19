@@ -9,7 +9,6 @@
 # LICENSE: see LICENSE for further info
 
 from setuptools import find_packages, setup
-import versioneer
 import os
 
 
@@ -23,7 +22,7 @@ with open("README.md", encoding="utf-8") as readme:
 
 setup(
     name="ratchada-utils",
-    setup_requires=["setuptools>=42", "versioneer"],
+    version="1.0.0",
     packages=find_packages(where="ratchada_utils"),
     package_dir={"": "ratchada_utils"},
     url="https://github.com/thinkingmachines/ratchada-utils/",
@@ -75,6 +74,4 @@ setup(
             "process-data=ratchada_utils.cli:process_data",
         ],
     },
-    cmdclass=versioneer.get_cmdclass(),
-    version=versioneer.get_version(),
 )
