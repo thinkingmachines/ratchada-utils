@@ -24,7 +24,7 @@ pip install .
 
 ```bash
 
-from ratchada_processor.process import tokenize_text
+from ratchada_utils.processor import tokenize_text
 
 text = "Your input text here."
 tokenized_text = tokenize_text(text, pred=True)
