@@ -10,6 +10,15 @@
 
 from setuptools import find_packages, setup
 import os
+from setuptools_scm import get_version
+from setuptools_scm.version import guess_next_version
+
+
+def version_scheme(version):
+    if version.exact:
+        return version.format_with("{tag}")
+    else:
+        return guess_next_version(version.tag)
 
 
 def parse_requirements(filename):
@@ -25,9 +34,8 @@ setup(
     use_scm_version={
         "write_to": "ratchada_utils/VERSION",
         "write_to_template": "{version}",
-        "tag_regex": r"^(?P<prefix>v)?(?P<version>[^\+]+)(?P<suffix>.*)?$",
+        "version_scheme": version_scheme,
         "local_scheme": "no-local-version",
-        "version_scheme": "post-release",
     },
     setup_requires=["setuptools_scm"],
     packages=find_packages(where="ratchada_utils"),
