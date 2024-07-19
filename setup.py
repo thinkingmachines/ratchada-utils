@@ -22,7 +22,12 @@ with open("README.md", encoding="utf-8") as readme:
 
 setup(
     name="ratchada-utils",
-    version="1.0.0",
+    use_scm_version={
+        "write_to": "ratchada_utils/VERSION",
+        "write_to_template": "{version}",
+        "tag_regex": r"^(?P<prefix>v)?(?P<version>[^\+]+)(?P<suffix>.*)?$",
+    },
+    setup_requires=["setuptools_scm"],
     packages=find_packages(where="ratchada_utils"),
     package_dir={"": "ratchada_utils"},
     url="https://github.com/thinkingmachines/ratchada-utils/",
@@ -69,9 +74,4 @@ setup(
     python_requires=">=3.10, <3.12",
     install_requires=parse_requirements("requirements.txt"),
     zip_safe=False,
-    entry_points={
-        "console_scripts": [
-            "process-data=ratchada_utils.cli:process_data",
-        ],
-    },
 )

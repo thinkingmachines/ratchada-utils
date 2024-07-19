@@ -27,6 +27,8 @@ ENV/
 env.bak/
 venv.bak/
 
+ratchada_utils/VERSION
+
 # VScode
 .vscode/
 
