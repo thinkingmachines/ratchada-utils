@@ -26,6 +26,8 @@ setup(
         "write_to": "ratchada_utils/VERSION",
         "write_to_template": "{version}",
         "tag_regex": r"^(?P<prefix>v)?(?P<version>[^\+]+)(?P<suffix>.*)?$",
+        "local_scheme": "no-local-version",
+        "version_scheme": "post-release",
     },
     setup_requires=["setuptools_scm"],
     packages=find_packages(where="ratchada_utils"),
