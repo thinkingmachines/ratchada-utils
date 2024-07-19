@@ -31,13 +31,13 @@ with open("README.md", encoding="utf-8") as readme:
 
 setup(
     name="ratchada-utils",
+    setup_requires=["setuptools", "setuptools_scm"],
     use_scm_version={
-        "write_to": "ratchada_utils/VERSION",
+        "write_to": "ratchada_utils/VERSION.txt",
         "write_to_template": "{version}",
         "version_scheme": version_scheme,
         "local_scheme": "no-local-version",
     },
-    setup_requires=["setuptools", "setuptools_scm"],
     packages=find_packages(where="ratchada_utils"),
     package_dir={"": "ratchada_utils"},
     url="https://github.com/thinkingmachines/ratchada-utils/",
