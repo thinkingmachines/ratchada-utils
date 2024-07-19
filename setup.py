@@ -10,10 +10,11 @@
 
 from setuptools import find_packages, setup
 import versioneer
+import os
 
 
 def parse_requirements(filename):
-    with open(filename, "r") as f:
+    with open(os.path.join(os.path.dirname(__file__), filename), "r") as f:
         return [line.strip() for line in f if line.strip() and not line.startswith("#")]
 
 
@@ -22,7 +23,6 @@ with open("README.md", encoding="utf-8") as readme:
 
 setup(
     name="ratchada-utils",
-    use_scm_version=True,
     setup_requires=["setuptools>=42", "versioneer"],
     packages=find_packages(where="ratchada_utils"),
     package_dir={"": "ratchada_utils"},
@@ -68,7 +68,7 @@ setup(
     ],
     package_data={"ratchada_utils": ["test/*.doctest", "VERSION"]},
     python_requires=">=3.10, <3.12",
-    install_requires=parse_requirements("requirements.txt"),
+    install_requires=parse_requirements("./requirements.txt"),
     zip_safe=False,
     entry_points={
         "console_scripts": [
