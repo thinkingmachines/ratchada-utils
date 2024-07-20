@@ -10,15 +10,6 @@
 
 from setuptools import find_packages, setup
 import os
-from setuptools_scm import get_version
-from setuptools_scm.version import guess_next_version
-
-
-def version_scheme(version):
-    if version.exact:
-        return version.format_with("{tag}")
-    else:
-        return guess_next_version(version.tag)
 
 
 def parse_requirements(filename):
@@ -31,13 +22,8 @@ with open("README.md", encoding="utf-8") as readme:
 
 setup(
     name="ratchada-utils",
-    setup_requires=["setuptools", "setuptools_scm"],
-    use_scm_version={
-        "write_to": "ratchada_utils/VERSION.txt",
-        "write_to_template": "{version}",
-        "version_scheme": version_scheme,
-        "local_scheme": "no-local-version",
-    },
+    version="1.0.4",
+    setup_requires=["setuptools"],
     packages=find_packages(where="ratchada_utils"),
     package_dir={"": "ratchada_utils"},
     url="https://github.com/thinkingmachines/ratchada-utils/",
