@@ -22,7 +22,7 @@ with open("README.md", encoding="utf-8") as readme:
 
 setup(
     name="ratchada-utils",
-    version="1.0.4",
+    version="1.0.5",
     setup_requires=["setuptools"],
     packages=find_packages(where="ratchada_utils"),
     package_dir={"": "ratchada_utils"},
