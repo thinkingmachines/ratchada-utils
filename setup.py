@@ -22,8 +22,7 @@ with open("README.md", encoding="utf-8") as readme:
 
 setup(
     name="ratchada-utils",
-    version="1.0.7",
-    setup_requires=["setuptools"],
+    version="1.0.8",
     packages=find_packages(where="ratchada_utils"),
     package_dir={"": "ratchada_utils"},
     url="https://github.com/thinkingmachines/ratchada-utils/",

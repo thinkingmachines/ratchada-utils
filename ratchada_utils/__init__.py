@@ -1,1 +1,1 @@
-from processor import tokenize_text
+from .processor import tokenize_text
