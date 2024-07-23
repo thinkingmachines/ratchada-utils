@@ -22,7 +22,7 @@ with open("README.md", encoding="utf-8") as readme:
 
 setup(
     name="ratchada-utils",
-    version="1.0.8",
+    version="1.0.9",
     packages=["ratchada_utils"],
     url="https://github.com/thinkingmachines/ratchada-utils/",
     project_urls={
