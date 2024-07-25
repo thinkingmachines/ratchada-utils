@@ -22,8 +22,12 @@ def parse_requirements(filename):
 
 setup(
     name="ratchada_utils",
-    version="2.1.3",
+    version="2.1.4",
     packages=find_packages(include=['ratchada_utils', 'ratchada_utils.*']),
+    package_data={
+        'ratchada_utils.processor': ['*.json', "*.py"],
+        'ratchada_utils.evaluator': ['*.py'],
+    },
     include_package_data=True,
     install_requires=parse_requirements("requirements.txt"),
     license="MIT",
