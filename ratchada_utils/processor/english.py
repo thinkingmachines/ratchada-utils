@@ -2,6 +2,7 @@
 import json
 import os
 import re
+import importlib.resources
 from fractions import Fraction
 from typing import Iterator, List, Match, Optional, Union
 
@@ -459,8 +460,8 @@ class EnglishSpellingNormalizer:
     """
 
     def __init__(self):
-        mapping_path = os.path.join(os.path.dirname(__file__), "english.json")
-        self.mapping = json.load(open(mapping_path))
+        with importlib.resources.open_text("processor", "english.json") as english:
+            self.mapping = json.load(english)
 
     def __call__(self, s: str):
         return " ".join(self.mapping.get(word, word) for word in s.split())
