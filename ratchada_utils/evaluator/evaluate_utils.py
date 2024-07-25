@@ -334,7 +334,7 @@ def evaluate(preds: list[str], actuals: list[str], debug: bool = False) -> pd.Da
     return summary
 
 
-if __name__ == "__main__":
-    wer_score = wer_eng(
-        "I went to go to market place place", "I want to go to the market", debug=True
-    )
+# if __name__ == "__main__":
+#     wer_score = wer_eng(
+#         "I went to go to market place place", "I want to go to the market", debug=True
+#     )
