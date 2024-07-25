@@ -2,7 +2,7 @@ import deepcut
 import jiwer
 import pandas as pd
 
-from processor import EnglishTextNormalizer
+from ..processor import EnglishTextNormalizer
 from tqdm import tqdm
 
 
