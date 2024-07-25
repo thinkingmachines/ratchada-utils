@@ -22,7 +22,8 @@ def parse_requirements(filename):
 
 setup(
     name="ratchada_utils",
-    packages=(find_packages() + find_packages(where="./ratchada_utils")),
+    packages=(find_packages(where="./ratchada_utils")),
+    package_dir={"": "ratchada_utils"},
     include_package_data=True,
     version="2.0.0",
     install_requires=parse_requirements("requirements.txt"),
