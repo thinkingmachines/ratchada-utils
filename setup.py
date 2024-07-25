@@ -11,29 +11,34 @@
 from setuptools import find_packages, setup
 import os
 
+with open("README.md", encoding="utf-8") as readme:
+    LONG_DESCRIPTION = readme.read()
+
 
 def parse_requirements(filename):
     with open(os.path.join(os.path.dirname(__file__), filename), "r") as f:
         return [line.strip() for line in f if line.strip() and not line.startswith("#")]
 
 
-with open("README.md", encoding="utf-8") as readme:
-    LONG_DESCRIPTION = readme.read()
-
 setup(
-    name="ratchada-utils",
-    version="1.0.9",
-    packages=["ratchada_utils"],
+    name="ratchada_utils",
+    packages=(find_packages() + find_packages(where="./ratchada_utils")),
+    include_package_data=True,
+    version="2.0.0",
+    install_requires=parse_requirements("requirements.txt"),
+    license="MIT",
+    description="Ratchada Utils are Python package use with Ratchada Whisper model utilities.",
+    long_description=LONG_DESCRIPTION,
+    long_description_content_type="text/markdown",
+    author="tm-zoon",
+    author_email="zoon_p@thinkingmachin.es",
     url="https://github.com/thinkingmachines/ratchada-utils/",
     project_urls={
         "Documentation": "https://huggingface.co/ThinkingMachinesDataScience/Ratchada-Fang-Thon-Whisper",
         "Source Code": "https://github.com/thinkingmachines/ratchada-utils",
         "Issue Tracker": "https://github.com/thinkingmachines/ratchada-utils/issues",
     },
-    description="Ratchada Utils are Python package use with Ratchada Whisper model utilities.",
-    long_description=LONG_DESCRIPTION,
-    long_description_content_type="text/markdown",
-    license="MIT",
+    python_requires=">=3.10, <3.12",
     keywords=[
         "model",
         "Ratchada-Whisper",
@@ -42,10 +47,6 @@ setup(
         "natural language",
         "text analytics",
     ],
-    maintainer="Thinking Machines Data Sciences Inc. Thailand Team",
-    maintainer_email="hello@thinkingmachin.es",
-    author="tm-zoon",
-    author_email="zoon_p@thinkingmachin.es",
     classifiers=[
         "Intended Audience :: Developers",
         "Intended Audience :: Education",
@@ -64,8 +65,4 @@ setup(
         "Topic :: Text Processing :: Indexing",
         "Topic :: Text Processing :: Linguistic",
     ],
-    package_data={"ratchada_utils": ["test/*.doctest", "VERSION"]},
-    python_requires=">=3.10, <3.12",
-    install_requires=parse_requirements("requirements.txt"),
-    zip_safe=False,
 )
