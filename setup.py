@@ -22,10 +22,9 @@ def parse_requirements(filename):
 
 setup(
     name="ratchada_utils",
-    packages=(find_packages(where="./ratchada_utils")),
-    package_dir={"": "ratchada_utils"},
+    packages=find_packages(include=['ratchada_utils.*']),
     include_package_data=True,
-    version="2.0.0",
+    version="2.0.1",
     install_requires=parse_requirements("requirements.txt"),
     license="MIT",
     description="Ratchada Utils are Python package use with Ratchada Whisper model utilities.",
