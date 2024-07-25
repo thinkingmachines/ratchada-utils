@@ -22,7 +22,7 @@ def parse_requirements(filename):
 
 setup(
     name="ratchada_utils",
-    version="2.0.1",
+    version="2.1.0",
     packages=find_packages(include=['ratchada_utils', 'ratchada_utils.*']),
     include_package_data=True,
     install_requires=parse_requirements("requirements.txt"),

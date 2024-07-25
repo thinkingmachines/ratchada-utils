@@ -6,10 +6,10 @@ A Python library for the Ratchada Whisper model.
 
 ## Installation
 
-You can install `ratchada_util` using pip:
+You can install `ratchada_utils` using pip:
 
 ```bash
-pip install ratchada_util
+pip install ratchada_utils
 ```
 
 To install from source, clone the repository and run:
