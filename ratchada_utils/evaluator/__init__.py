@@ -18,4 +18,4 @@ isd: similar to evaluate, but give more concise information on each prediction a
     isd: Insertion-Substitution-Deletetion
 """
 
-from .evaluate_utils import evaluate, isd, simple_evaluation
+from .evaluate_utils import evaluate, isd, simple_evaluator

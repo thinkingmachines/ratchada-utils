@@ -337,7 +337,7 @@ def evaluate(preds: list[str], actuals: list[str], debug: bool = False) -> pd.Da
     return summary
 
 
-def simple_evaluation(preds: list[str], actuals: list[str]) -> pd.DataFrame:
+def simple_evaluator(preds: list[str], actuals: list[str]) -> pd.DataFrame:
     """
     Perform a simple evaluation of predicted words against actual words.
 
