@@ -36,6 +36,16 @@ print("Tokenized Text:", tokenized_text)
 # Tokenized Text: ['your', 'input', 'text', 'here']
 ```
 
+### Evaluate Performance
+
+```bash
+from ratchada_utils.evaluator import simple_evaluator
+
+result = pd.read_csv("./output/result-whisper-ratchada.csv")
+
+summary = simple_evaluator(result["pred_text"], result["true_text"])
+```
+
 ## Requirements
 
 1. Python 3.10 or higher
