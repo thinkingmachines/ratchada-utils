@@ -1,4 +1,3 @@
-import concurrent.futures
 from functools import partial, reduce
 
 import deepcut
