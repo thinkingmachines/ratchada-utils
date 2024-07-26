@@ -1,8 +1,10 @@
 # Ratchada_Util
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![PyPI version](https://badge.fury.io/py/ratchada-utils.svg)](https://badge.fury.io/py/ratchada-utils)
+[![Python Versions](https://img.shields.io/pypi/pyversions/ratchada-utils.svg)](https://pypi.org/project/ratchada-utils/)
 
-A Python library for the Ratchada Whisper model.
+A Python library for text processing and utilities related to the Ratchada Whisper model.
 
 ## Installation
 
@@ -15,6 +17,8 @@ pip install ratchada_utils
 To install from source, clone the repository and run:
 
 ```bash
+git clone https://github.com/yourusername/ratchada_utils.git
+cd ratchada_utils
 pip install .
 ```
 
@@ -30,7 +34,6 @@ text = "Your input text here."
 tokenized_text = tokenize_text(text, pred=True)
 print("Tokenized Text:", tokenized_text)
 # Tokenized Text: ['your', 'input', 'text', 'here']
-
 ```
 
 ## Requirements

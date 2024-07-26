@@ -1,8 +1,8 @@
 # flake8: noqa: C901
-import importlib.resources
 import json
 import re
 from fractions import Fraction
+from importlib import resources
 from typing import Iterator, List, Match, Optional, Union
 
 from more_itertools import windowed
@@ -454,7 +454,7 @@ class EnglishSpellingNormalizer:
     """
 
     def __init__(self):
-        with importlib.resources.open_text("processor", "english.json") as english:
+        with resources.open_text("ratchada_utils.processor", "english.json") as english:
             self.mapping = json.load(english)
 
     def __call__(self, s: str):
