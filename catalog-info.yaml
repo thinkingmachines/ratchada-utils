@@ -1,16 +1,29 @@
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-  name: pypi-package-project
-  title: PyPI Package Project
-  description: A PyPI package for handling various tasks and functionalities.
+  name: ratchada-utils
+  title: Ratchada Utils
+  description: A Python library for text processing and utilities related to the Ratchada Whisper model.
   annotations:
     backstage.io/techdocs-ref: dir:.
-    github.com/project-slug: hinkingmachines/ratchada-utils
+    github.com/project-slug: thinkingmachines/ratchada-utils
   tags:
+    - python
+    - nlp
+    - text-processing
     - open-source
-
+    - pypi-package
 spec:
-  owner: user:your-github-username # Replace with your GitHub username
-  type: internal
-  lifecycle: development # Switch to production once live
+  type: library
+  lifecycle: development
+  owner: thinkingmachines/set-team
+  system: speech-to-text-tools
+  dependsOn:
+    - resource:pypi-registry
+  providesApis:
+    - ratchada-utils-api
+  definition:
+    $text: |
+      Main functions:
+      - tokenize_text(text: str, pred: bool = False) -> List[str]
+      - simple_evaluation(preds: List[str], actuals: List[str]) -> pd.DataFrame
