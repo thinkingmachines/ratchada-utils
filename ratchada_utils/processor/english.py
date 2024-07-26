@@ -3,8 +3,9 @@ import json
 import os
 import re
 from fractions import Fraction
-from importlib import resources
 from typing import Iterator, List, Match, Optional, Union
+
+from more_itertools import windowed
 
 from .basic import remove_symbols_and_diacritics
 
@@ -524,19 +525,16 @@ class EnglishTextNormalizer:
     def __call__(self, s: str):
         s = s.lower()
 
-        # remove words between brackets
-        s = re.sub(r"[<\[][^>\]]*[>\]]", "", s)
+        s = re.sub(r"[<\[][^>\]]*[>\]]", "", s)  # remove words between brackets
         s = re.sub(r"\(([^)]+?)\)", "", s)  # remove words between parenthesis
         s = re.sub(self.ignore_patterns, "", s)
-        # when there's a space before an apostrophe
-        s = re.sub(r"\s+'", "'", s)
+        s = re.sub(r"\s+'", "'", s)  # when there's a space before an apostrophe
 
         for pattern, replacement in self.replacers.items():
             s = re.sub(pattern, replacement, s)
 
         s = re.sub(r"(\d),(\d)", r"\1\2", s)  # remove commas between digits
-        # remove periods not followed by numbers
-        s = re.sub(r"\.([^0-9]|$)", r" \1", s)
+        s = re.sub(r"\.([^0-9]|$)", r" \1", s)  # remove periods not followed by numbers
         s = remove_symbols_and_diacritics(s, keep=".%$¢€£")  # keep numeric symbols
 
         s = self.standardize_numbers(s)
@@ -546,7 +544,6 @@ class EnglishTextNormalizer:
         s = re.sub(r"[.$¢€£]([^0-9])", r" \1", s)
         s = re.sub(r"([^0-9])%", r"\1 ", s)
 
-        # replace any successive whitespaces with a space
-        s = re.sub(r"\s+", " ", s)
+        s = re.sub(r"\s+", " ", s)  # replace any successive whitespaces with a space
 
         return s
