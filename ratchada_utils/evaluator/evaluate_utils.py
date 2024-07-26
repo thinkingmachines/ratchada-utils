@@ -1,9 +1,12 @@
+import concurrent.futures
+from functools import partial, reduce
+
 import deepcut
 import jiwer
 import pandas as pd
 from tqdm import tqdm
 
-from ..processor import EnglishTextNormalizer
+from ..processor import EnglishTextNormalizer, tokenize_text
 
 
 def alignedPrint(steps: list, preds: list[str], actuals: list[str], score: float):
@@ -332,6 +335,25 @@ def evaluate(preds: list[str], actuals: list[str], debug: bool = False) -> pd.Da
     _, _, summary = isd(preds, actuals)
 
     return summary
+
+
+def simple_evaluation(preds: list[str], actuals: list[str]) -> pd.DataFrame:
+    prediction_words = list(map(partial(tokenize_text, pred=True), preds))
+    references_words = list(map(tokenize_text, actuals))
+
+    def flatten_and_filter(words_list):
+        words_reduce = list(reduce(lambda a, b: a + b, words_list))
+        words_reduce = [word for word in words_reduce if word not in ["", " "]]
+        return words_reduce
+
+    with concurrent.futures.ProcessPoolExecutor() as executor:  # works in multiple GPU cores
+        future_pred = executor.submit(flatten_and_filter, prediction_words)
+        future_ref = executor.submit(flatten_and_filter, references_words)
+
+        prediction_words_reduce = future_pred.result()
+        references_words_reduce = future_ref.result()
+
+    return evaluate(prediction_words_reduce, references_words_reduce)
 
 
 # if __name__ == "__main__":
