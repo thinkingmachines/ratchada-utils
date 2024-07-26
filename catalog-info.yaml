@@ -6,7 +6,7 @@ metadata:
   description: A PyPI package for handling various tasks and functionalities.
   annotations:
     backstage.io/techdocs-ref: dir:.
-    github.com/project-slug: hinkingmachines/ratchada-utils 
+    github.com/project-slug: hinkingmachines/ratchada-utils
   tags:
     - open-source
 

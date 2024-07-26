@@ -1,11 +1,12 @@
 # flake8: noqa: E722
 import re
 from typing import List
-from langdetect import detect
-import deepcut
 
-from .postfix import remove_longest_repeating_words
+import deepcut
+from langdetect import detect
+
 from .english import EnglishTextNormalizer
+from .postfix import remove_longest_repeating_words
 
 
 def en_preprocess(text: str) -> str:

@@ -8,7 +8,9 @@ def keys_with_max_value(d):
     return max_keys
 
 
-def remove_duplicate_keep_first(word_list: List[str], duplicate_word: List[str]) -> List[str]:
+def remove_duplicate_keep_first(
+    word_list: List[str], duplicate_word: List[str]
+) -> List[str]:
     unique_list = []
     duplicate_word = set(duplicate_word)
     for word in word_list:
@@ -22,7 +24,6 @@ def remove_duplicate_keep_first(word_list: List[str], duplicate_word: List[str])
 
 
 def remove_longest_repeating_words(word_list: List[str]) -> List[str]:
-
     if len(set(word_list)) == len(word_list):
         return word_list
 

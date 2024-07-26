@@ -16,5 +16,4 @@ english_text_normalizer: class, normalize english language numbers.
 
 from .basic import BasicTextNormalizer as BasicTextNormalizer
 from .english import EnglishTextNormalizer as EnglishTextNormalizer
-
 from .process import tokenize_text

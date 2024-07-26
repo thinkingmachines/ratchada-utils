@@ -1,6 +1,7 @@
 # flake8: noqa: E501
 import re
 import unicodedata
+
 import regex
 
 # non-ASCII letters that are not separated by "NFKD" normalization
@@ -39,7 +40,9 @@ def remove_symbols_and_diacritics(s: str, keep=""):
                 else (
                     ""
                     if unicodedata.category(c) == "Mn"
-                    else " " if unicodedata.category(c)[0] in "MSP" else c
+                    else " "
+                    if unicodedata.category(c)[0] in "MSP"
+                    else c
                 )
             )
         )

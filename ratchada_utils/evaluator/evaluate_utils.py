@@ -1,9 +1,9 @@
 import deepcut
 import jiwer
 import pandas as pd
+from tqdm import tqdm
 
 from ..processor import EnglishTextNormalizer
-from tqdm import tqdm
 
 
 def alignedPrint(steps: list, preds: list[str], actuals: list[str], score: float):

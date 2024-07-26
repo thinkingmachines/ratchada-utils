@@ -1,2 +1,1 @@
-from . import processor
-from . import evaluator
+from . import evaluator, processor

@@ -8,8 +8,9 @@
 # URL: <https://thinkingmachin.es/>
 # LICENSE: see LICENSE for further info
 
-from setuptools import find_packages, setup
 import os
+
+from setuptools import find_packages, setup
 
 with open("README.md", encoding="utf-8") as readme:
     LONG_DESCRIPTION = readme.read()
@@ -23,10 +24,10 @@ def parse_requirements(filename):
 setup(
     name="ratchada_utils",
     version="2.1.6",
-    packages=find_packages(include=['ratchada_utils', 'ratchada_utils.*']),
+    packages=find_packages(include=["ratchada_utils", "ratchada_utils.*"]),
     package_data={
-        'ratchada_utils.processor': ['*.json', "*.py"],
-        'ratchada_utils.evaluator': ['*.py'],
+        "ratchada_utils.processor": ["*.json", "*.py"],
+        "ratchada_utils.evaluator": ["*.py"],
     },
     include_package_data=True,
     install_requires=parse_requirements("requirements.txt"),
