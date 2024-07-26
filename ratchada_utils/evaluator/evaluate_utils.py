@@ -338,10 +338,30 @@ def evaluate(preds: list[str], actuals: list[str], debug: bool = False) -> pd.Da
 
 
 def simple_evaluation(preds: list[str], actuals: list[str]) -> pd.DataFrame:
+    """
+    Perform a simple evaluation of predicted words against actual words.
+
+    Args:
+        preds (List[str]): A list of predicted sentences or phrases.
+        actuals (List[str]): A list of actual sentences or phrases to compare against.
+        debug (bool, optional): If True, prints debug information for intermediate steps. Defaults to False.
+
+    Returns:
+        pd.DataFrame: A DataFrame containing evaluation metrics summarizing the comparison.
+    """
     prediction_words = list(map(partial(tokenize_text, pred=True), preds))
     references_words = list(map(tokenize_text, actuals))
 
-    def flatten_and_filter(words_list):
+    def flatten_and_filter(words_list: list[list[str]]) -> list[str]:
+        """
+        Flatten a list of lists into a single list and remove empty strings and spaces.
+
+        Args:
+            words_list (List[List[str]]): A list of lists where each inner list contains tokenized words.
+
+        Returns:
+            List[str]: A flattened list of words with empty strings and spaces removed.
+        """
         words_reduce = list(reduce(lambda a, b: a + b, words_list))
         words_reduce = [word for word in words_reduce if word not in ["", " "]]
         return words_reduce
