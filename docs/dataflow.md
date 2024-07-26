@@ -1,21 +1,41 @@
 # Data Flow Documentation
 ## Data Flow Overview
-The data flow for the Ratchada Whisper Hugger project involves several stages from data ingestion to output. The following steps outline how data flows through the system:
+The data flow for the `ratchada_utils` project involves processing audio files for speech-to-text transcription using the Whisper model. The flow begins with data input, goes through preprocessing and transcription, and ends with storing the transcribed data.
 
+## Inputs
 ### Data Ingestion
 
-- **Component**: ratchada_utils.processor module
-- **Description**: Data is ingested from various sources such as raw text files, web scraping, or APIs. This step involves gathering data, often including text, metadata (date, author), and other relevant information.
-- **Differences Between Dev and Prod**: In development, the data source may be simulated or mocked to allow for rapid testing. In production, data is gathered from live, real-world sources.
+- **Input**: Audio files (WAV format)
+- **Component**: Google Cloud Storage
+- **Scheduling**: On-demand or scheduled batch processing
 
-### Data Preprocessing
+### Preprocessing
 
-- **Component**: process.py and basic.py in ratchada_utils.processor
-- **Description**: The ingested data is cleaned and preprocessed. This involves tokenization, normalization, and transformation to prepare the data for evaluation or further processing. Preprocessing scripts handle tasks such as splitting text into tokens, removing unnecessary characters, and formatting data.
-- **Differences Between Dev and Prod**: Preprocessing steps might be adjusted in development to test different scenarios, whereas production uses optimized configurations for efficiency and accuracy.
+- **Input**: Audio files
+- **Component**: ratchada_utils.processor
+- **Steps**: Audio normalization, silence removal
 
-### Data Evaluation
+### Transcription
 
-- **Component**: evaluate_utils.py in ratchada_utils.evaluator
-- **Description**: Evaluates the processed data to ensure it meets the required standards and performance metrics. This step includes comparing processed data against benchmarks or performing quality checks.
-- **Differences Between Dev and Prod**: Evaluation criteria may be stricter in production, with thresholds set based on real-world performance requirements. Development evaluation may use looser criteria for easier debugging.
+- **Input**: Preprocessed audio files
+- **Component**: Whisper model (WhisperForConditionalGeneration and WhisperProcessor)
+- **Steps**: Transcribing audio to text
+
+### Post-processing
+
+- **Input**: Transcribed text
+- **Component**: ratchada_utils.processor
+- **Steps**: Text cleaning, formatting
+
+## Outputs
+### Data Storage
+
+- **Output**: Transcribed and processed text
+- **Component**: Google Cloud Storage / Elasticsearch
+- **Location**: Dev and prod-specific storage buckets or indices
+
+### Data Utilization
+
+- **Output**: Processed data for downstream tasks (e.g., NLP, analytics)
+- **Component**: Various applications consuming the processed data
+- **Scheduling**: Continuous or on-demand access
