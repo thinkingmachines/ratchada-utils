@@ -367,12 +367,8 @@ def simple_evaluator(preds: list[str], actuals: list[str]) -> pd.DataFrame:
     prediction_words = list(map(partial(tokenize_text, pred=True), preds))
     references_words = list(map(tokenize_text, actuals))
 
-    with concurrent.futures.ProcessPoolExecutor() as executor:  # works in multiple GPU cores
-        future_pred = executor.submit(flatten_and_filter, prediction_words)
-        future_ref = executor.submit(flatten_and_filter, references_words)
-
-        prediction_words_reduce = future_pred.result()
-        references_words_reduce = future_ref.result()
+    prediction_words_reduce = flatten_and_filter(prediction_words)
+    references_words_reduce = flatten_and_filter(references_words)
 
     return evaluate(prediction_words_reduce, references_words_reduce)
 
