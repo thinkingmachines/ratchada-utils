@@ -23,7 +23,7 @@ def parse_requirements(filename):
 
 setup(
     name="ratchada_utils",
-    version="2.1.20",
+    version="2.1.21",
     packages=find_packages(include=["ratchada_utils", "ratchada_utils.*"]),
     package_data={
         "ratchada_utils.processor": ["*.json", "*.py"],

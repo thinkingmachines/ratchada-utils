@@ -1,49 +1,50 @@
-# Development Lifecycle
+# Development Guide
 
-``` @TODO: Replace Example with your Team's Dev Workflow ```
+## Setting Up Development Environment
 
-## Trunk Based Development
+1. Clone the repository:
 
-![Trunk Based Development](https://trunkbaseddevelopment.com/trunk1b.png)
+```zsh
+git clone https://github.com/yourusername/ratchada_utils.git
+cd ratchada_utils
+```
 
-The github-starter project follows the concept of Trunk-based Development, wherein User Stories are worked on PRs. PRs then get merged to `master` once approved by the team.
+2. Create a virtual environment:
+```zsh
+python -m venv venv
+source venv/bin/activate  # On Windows, use venv\Scripts\activate
+```
+3. Install development dependencies:
+```zsh
+pip install -r requirements-dev.txt
+```
 
-The master branch serves as the most up-to-date version of the code base. For releases, whenever we deploy, we create a `release/<version>` branch, which is based off of `master` at a given point in time, and serves as the branch to be deployed
+## Code Style
 
-### Naming Format
+We follow PEP 8 guidelines. We use Black for code formatting and Flake8 for linting.
 
-``` @TODO: Update according to Team's agreement ```
+To format your code:
+```zsh
+black .
+```
+To run the linter:
+```zsh
+flake8 .
+```
+## Making a Release
 
-**Branch Names:**
-- To `<dev>` Branch:
-    - `feature/<issue-id>-<header>`
-    - `fix/<issue-id>-<header>`
-- To `<prod/master>` Branch:
-    - `release/<version>`
-    - `release/<version>-<hotfix>`
+1. Update the version number in `setup.py`.
+2. Update `CHANGELOG.md`.
+3. Commit these changes with a message like "Bump version to x.x.x".
+4. Tag the commit: `git tag vx.x.x`
+5. Push to GitHub: `git push origin master --tags`
+6. Create a new release on GitHub using this tag.
+7. The GitHub Action will automatically publish to PyPI.
 
-**PR Title:** `[<Feature/Fix/Release/Hotfix>](<issue-id>) <Short desc>`
+## Documentation
 
-**PR Template:** [pull_request_template.md](../.github/pull_request_template.md)
-
-### Development Workflow
-``` @TODO: Development workflow being used by the devs. Eg: Make changes in local, push to dev for testing, make a PR, deploy after merging```
-
-## Local Development
-``` Note: This should contain all information for new devs to set up and make changes```
-### File Structure Walkthrough
-``` @TODO: Fill with a brief walkthrough of the codebase ```
-- `docs/` - This folder contains all Markdown files for creating Backstage TechDocs.
-- `infra/` - This folder contains all infra definitions through Terraform.
-
-### Pre-requisites
-``` @TODO: Fill with pre-reqs such as access to Cloud Platform, Bitwarden Collection, Github etc ```
-
-### Cloning and Installation
-``` @TODO: Fill with set-up/installation guide. Feel free to subdivide to sections or multiple MD files through mkdocs.yml ```
-
-### Environment Setup
-``` @TODO: Fill with instructions for exporting local env variables. Distinguish variables being used in local vs dev vs prod ```
-
-### Running the Application
-``` @TODO: Fill with steps on running the app locally.  Feel free to subdivide to sections or multiple MD files through mkdocs.yml ```
+We use MkDocs for documentation. To build the docs locally:
+```zsh
+mkdocs serve
+```
+Then visit `http://localhost:8000` to view the documentation.
