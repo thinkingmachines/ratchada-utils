@@ -17,13 +17,13 @@ with open("README.md", encoding="utf-8") as readme:
 
 
 def parse_requirements(filename):
-    with open(os.path.join(os.path.dirname(__file__), filename), "r") as f:
+    with open(os.path.join(os.path.dirname(__file__), filename)) as f:
         return [line.strip() for line in f if line.strip() and not line.startswith("#")]
 
 
 setup(
     name="ratchada_utils",
-    version="2.1.6",
+    version="2.1.7",
     packages=find_packages(include=["ratchada_utils", "ratchada_utils.*"]),
     package_data={
         "ratchada_utils.processor": ["*.json", "*.py"],
