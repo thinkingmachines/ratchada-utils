@@ -27,8 +27,14 @@ ADDITIONAL_DIACRITICS = {
 
 def remove_symbols_and_diacritics(s: str, keep=""):
     """
-    Replace any other markers, symbols, and punctuations with a space,
-    and drop any diacritics (category 'Mn' and some manual mappings)
+    Remove symbols, punctuations, and diacritics from a string.
+
+    Args:
+        s (str): The input string to process.
+        keep (str, optional): Characters to keep in the string. Defaults to "".
+
+    Returns:
+        str: The processed string with symbols, punctuations, and diacritics removed.
     """
     return "".join(
         (
@@ -52,7 +58,13 @@ def remove_symbols_and_diacritics(s: str, keep=""):
 
 def remove_symbols(s: str):
     """
-    Replace any other markers, symbols, punctuations with a space, keeping diacritics
+    Remove symbols and punctuations from a string, keeping diacritics.
+
+    Args:
+        s (str): The input string to process.
+
+    Returns:
+        str: The processed string with symbols and punctuations removed.
     """
     return "".join(
         " " if unicodedata.category(c)[0] in "MSP" else c
@@ -61,6 +73,14 @@ def remove_symbols(s: str):
 
 
 class BasicTextNormalizer:
+    """
+    A class for basic text normalization.
+
+    Args:
+        remove_diacritics (bool, optional): Whether to remove diacritics. Defaults to False.
+        split_letters (bool, optional): Whether to split letters. Defaults to False.
+    """
+
     def __init__(self, remove_diacritics: bool = False, split_letters: bool = False):
         self.clean = (
             remove_symbols_and_diacritics if remove_diacritics else remove_symbols
@@ -68,6 +88,15 @@ class BasicTextNormalizer:
         self.split_letters = split_letters
 
     def __call__(self, s: str):
+        """
+        Normalize the input text.
+
+        Args:
+            s (str): The input string to normalize.
+
+        Returns:
+            str: The normalized string.
+        """
         s = s.lower()
         s = re.sub(r"[<\[][^>\]]*[>\]]", "", s)  # remove words between brackets
         s = re.sub(r"\(([^)]+?)\)", "", s)  # remove words between parenthesis

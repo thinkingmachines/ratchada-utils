@@ -8,7 +8,7 @@ from tqdm import tqdm
 from ..processor import EnglishTextNormalizer, tokenize_text
 
 
-def alignedPrint(steps: list, preds: list[str], actuals: list[str], score: float):
+def align_print(steps: list, preds: list[str], actuals: list[str], score: float):
     """
     Print the result of comparing reference and hypothesis sentences in an aligned way.
 
@@ -241,7 +241,7 @@ def isd(preds: list[str], actuals: list[str], debug: bool = False) -> tuple:
         columns=columns,
     )
     if debug:
-        alignedPrint(step["steps"], actuals, preds, dp[-1][-1] / len(actuals))
+        align_print(step["steps"], actuals, preds, dp[-1][-1] / len(actuals))
         print(summary)
 
     return (dp[-1][-1], step, summary)

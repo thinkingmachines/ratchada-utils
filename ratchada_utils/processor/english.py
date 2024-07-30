@@ -19,6 +19,12 @@ class EnglishNumberNormalizer:
     - spell out currency symbols after the number. e.g. `$20 million` -> `20000000 dollars`
     - spell out `one` and `ones`
     - interpret successive single-digit numbers as nominal: `one oh one` -> `101`
+
+    Args:
+        s (str): The input text to be normalized.
+
+    Returns:
+        str: The normalized text.
     """
 
     def __init__(self):
@@ -162,6 +168,15 @@ class EnglishNumberNormalizer:
         self.literal_words = {"one", "ones"}
 
     def process_words(self, words: List[str]) -> Iterator[str]:
+        """
+        Process a list of words and convert spelled-out numbers to arabic numerals.
+
+        Args:
+            words (List[str]): A list of words to process.
+
+        Returns:
+            Iterator[str]: An iterator of processed words with numbers converted.
+        """
         prefix: Optional[str] = None
         value: Optional[Union[str, int]] = None
         skip = False
@@ -385,6 +400,15 @@ class EnglishNumberNormalizer:
             yield output(value)
 
     def preprocess(self, s: str):
+        """
+        Preprocess the input string before number conversion.
+
+        Args:
+            s (str): The input string to preprocess.
+
+        Returns:
+            str: The preprocessed string.
+        """
         # replace "<number> and a half" with "<number> point five"
         results = []
 
@@ -414,6 +438,16 @@ class EnglishNumberNormalizer:
         return s
 
     def postprocess(self, s: str):
+        """
+        Postprocess the string after number conversion.
+
+        Args:
+            s (str): The string to postprocess.
+
+        Returns:
+            str: The postprocessed string.
+        """
+
         def combine_cents(m: Match):
             try:
                 currency = m.group(1)
@@ -439,6 +473,15 @@ class EnglishNumberNormalizer:
         return s
 
     def __call__(self, s: str):
+        """
+        Convert spelled-out numbers in the input string to arabic numerals.
+
+        Args:
+            s (str): The input string containing spelled-out numbers.
+
+        Returns:
+            str: The processed string with numbers converted to arabic numerals.
+        """
         s = self.preprocess(s)
         s = " ".join(word for word in self.process_words(s.split()) if word is not None)
         s = self.postprocess(s)
@@ -448,9 +491,10 @@ class EnglishNumberNormalizer:
 
 class EnglishSpellingNormalizer:
     """
-    Applies British-American spelling mappings as listed in [1].
+    Normalizes British-American spelling variations using a predefined mapping.
 
-    [1] https://www.tysto.com/uk-us-spelling-list.html
+    This class applies British-American spelling mappings as listed in:
+    https://www.tysto.com/uk-us-spelling-list.html
     """
 
     def __init__(self):
@@ -458,10 +502,26 @@ class EnglishSpellingNormalizer:
         self.mapping = json.load(open(mapping_path))
 
     def __call__(self, s: str):
+        """
+        Normalize British spellings to American spellings in the input string.
+
+        Args:
+            s (str): The input string containing words to be normalized.
+
+        Returns:
+            str: The input string with British spellings converted to American spellings.
+        """
         return " ".join(self.mapping.get(word, word) for word in s.split())
 
 
 class EnglishTextNormalizer:
+    """
+    Normalizes English text by applying various text transformations and standardizations.
+
+    This class handles tasks such as expanding contractions, standardizing numbers,
+    normalizing spellings, and removing certain patterns and symbols from the text.
+    """
+
     def __init__(self):
         self.ignore_patterns = r"\b(hmm|mm|mhm|mmm|uh|um)\b"
         self.replacers = {
@@ -523,6 +583,15 @@ class EnglishTextNormalizer:
         self.standardize_spellings = EnglishSpellingNormalizer()
 
     def __call__(self, s: str):
+        """
+        Apply full text normalization to the input string.
+
+        Args:
+            s (str): The input string to be normalized.
+
+        Returns:
+            str: The fully normalized text.
+        """
         s = s.lower()
 
         s = re.sub(r"[<\[][^>\]]*[>\]]", "", s)  # remove words between brackets
