@@ -1,14 +1,41 @@
 # Data Flow Documentation
-``` @TODO: Describe how Data flows end to end. Attach a diagram if possible. Note any differences between dev and prod. ```
-``` Please indicate the name of the component handling the data at critical steps of the data flow.``` <br>
-``` Eg. Writing out the name of DAGs, Dataset/Tables, Apps.``` <br>
-``` Note: Include relevent information such as scheduling or how the project works in production.```
+## Data Flow Overview
+The data flow for the `ratchada_utils` project involves processing audio files for speech-to-text transcription using the Whisper model. The flow begins with data input, goes through preprocessing and transcription, and ends with storing the transcribed data.
 
-## Input and Output Data
-``` @TODO: List down input and output data. Write down where data comes from and where it goes to. ```
-### Input A
-- Description: Scraped data from the website (article text, date, author)
-- File Location: Internet
-### Output A
-- Description: Ingested to ES for the WebApp.
-- File Location: Elasticsearch DB (dev-elasticsearch VM)
+## Inputs
+### Data Ingestion
+
+- **Input**: Audio files (WAV format)
+- **Component**: Google Cloud Storage
+- **Scheduling**: On-demand or scheduled batch processing
+
+### Preprocessing
+
+- **Input**: Audio files
+- **Component**: ratchada_utils.processor
+- **Steps**: Audio normalization, silence removal
+
+### Transcription
+
+- **Input**: Preprocessed audio files
+- **Component**: Whisper model (WhisperForConditionalGeneration and WhisperProcessor)
+- **Steps**: Transcribing audio to text
+
+### Post-processing
+
+- **Input**: Transcribed text
+- **Component**: ratchada_utils.processor
+- **Steps**: Text cleaning, formatting
+
+## Outputs
+### Data Storage
+
+- **Output**: Transcribed and processed text
+- **Component**: Google Cloud Storage / Elasticsearch
+- **Location**: Dev and prod-specific storage buckets or indices
+
+### Data Utilization
+
+- **Output**: Processed data for downstream tasks (e.g., NLP, analytics)
+- **Component**: Various applications consuming the processed data
+- **Scheduling**: Continuous or on-demand access

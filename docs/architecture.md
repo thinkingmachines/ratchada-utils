@@ -1,101 +1,72 @@
-# Project Architecture and Access to Production
+# Project Architecture
 
-``` @TODO: Summary of Architecture and steps to access each component ```
+## Overview
 
-The `github-starter` project is meant as a base repository template; it should be a basis for other projects. 
-
-`github-starter` is hosted on Github, and is available as a [Template in Backstage]([url](https://catalog.tm8.dev/create?filters%5Bkind%5D=template&filters%5Buser%5D=all)****)
+Ratchada_Utils is a Python library designed to provide text processing utilities, particularly for tasks related to the Ratchada Whisper model. It's primarily used for tokenization and evaluation of speech-to-text outputs.
 
 ## Architecture Details
-```Note: Structure of this document assumes Dev and Prod are in different Cloud Platform projects. You can reduce the sections for architecture if redundant. Just note the datasets, vms, buckets, etc. being used in Dev vs Prod ```
-- Provider: ``` @TODO: GCP / AWS / Azure / etc ```
-- Dev Environment: ``` @TODO: Link to dev env ```
-- Prod Environment: ``` @TODO: Link to prod env ```
-- Technology: ``` @TODO: Python / Airflow / Dagster / Postgres / Snowflake / etc ```
 
-### Implementation Notes
-``` @TODO: Note down known limitations, possible issues, or known quirks with the project. The following questions might help: ``` <br>
-``` 1. Which component needs most attention? ie. Usually the first thing that needs tweaks ``` <br>
-``` 2. Are the parts of the project that might break in the future? (eg. Filling up of disk space, memory issues if input data size increases, a web scraper, etc.)``` <br>
-``` 3. What are some known limitations for the project? (eg. Input data schema has to remain the same, etc.)```
+- Language: Python (3.10+)
+- Package Manager: pip
+- Documentation: MkDocs
+- Testing: pytest
+- Code Style: Black, Flake8
+- Continuous Integration: GitHub Actions
 
-## Dev Architecture
-``` @TODO: Dev architecture diagram and description. Please include any OAuth or similar Applications.```
-``` @TODO: List out main components being used and their descriptions.```
+## Main Components
 
-### Virtual Machines
-``` @TODO: List VMs used and what they host```
-### Datasets
-``` @TODO: List datasets given following format```
-#### Dataset A
-- Description: PSGC Data
-- File Location: GCS Uri / GDrive link / etc
-- Retention Policy: 3 months
+1. Text Processor
+   - Location: `ratchada_utils/processor/`
+   - Key Function: `tokenize_text()`
+   - Description: Handles text tokenization for both prediction and reference texts.
 
-### Tokens and Accounts
-``` @TODO: Please fill out all Tokens and Accounts being used in the project given the format below. Include tokens from client used in the project.```
+2. Evaluator
+   - Location: `ratchada_utils/evaluator/`
+   - Key Function: `simple_evaluation()`
+   - Description: Provides metrics for comparing predicted text against reference text.
 
-**Dev Github Service Account Token**
+## Data Flow
 
-- Location: Bitwarden Github Collection
-- Person in charge: Client Name (client@email.com)
-- Validity: 30 Days
-- Description: This token is used to call the Github API using the account ``sample-account@thinkingmachin.es`
-- How to Refresh:
-  1. Go to github.com
-  2. Click refresh
+1. Input: Raw text (string)
+2. Processing: Tokenization
+3. Evaluation: Comparison of tokenized prediction and reference texts
+4. Output: Evaluation metrics (pandas DataFrame)
 
-## Production Architecture
-``` @TODO: Prod architecture diagram and description. Please include any OAuth or similar Applications.```
-``` @TODO: List out main components being used and their descriptions.```
+## Dependencies
 
-### Virtual Machines
-``` @TODO: List VMs used and what they host```
-### Datasets
-``` @TODO: List datasets given following format```
-#### Dataset A
-- Description: PSGC Data
-- File Location: GCS Uri / GDrive link / etc
-- Retention Policy: 3 months
+Major dependencies include:
+- pandas: For data manipulation and analysis
+- numpy: For numerical operations
+- concurrent.futures: For parallel processing
 
-### Tokens and Accounts
-``` @TODO: Please fill out all Tokens and Accounts being used in the project given the format below. Include tokens from client used in the project.```
+Full list of dependencies can be found in `requirements.txt`.
 
-**Prod Github Service Account Token**
+## Development Environment
 
-- Location: Bitwarden Github Collection
-- Person in charge: Client Name (client@email.com)
-- Validity: 30 Days
-- Description: This token is used to call the Github API using the account ``sample-account@thinkingmachin.es`
-- How to Refresh:
-  1. Go to github.com
-  2. Click refresh
+The project is developed using a virtual environment to isolate dependencies. See the [Development Guide](development.md) for setup instructions.
 
-## Accessing Cloud Platform Environments
-```@TODO: Describe the steps to access the prod VMs/platform```
+## Deployment
 
-**Get access to Client AWS Platform**
-- Person in charge: Client Name/Dev Name
-- Bitwarden Credentials: 
-1. Install AWS CLI
-2. Run `aws configure` - ID and Secret from Bitwarden
+The package is deployed to PyPI for easy installation by users. Deployment is handled through GitHub Actions. See the [Deployment Procedure](deployment.md) for details.
 
-**Accessing Prod VM**
-1. Update your ssh config to have the following:
-```
-Host project-vpn
-   Hostname xx.xxx.xxx.xxx
-   User ubuntu
-   
-# Use the Private IP for the rest
-Host dev-project-app
-   Hostname xxx.xx.xx.xx
-   User ubuntu
-   ProxyJump project-vpn
-```
-2. Run `ssh dev-project-app`
+## Security Considerations
 
-**Access Prod App in UI**
-1. Install `sshuttle`
-2. Run `sshuttle -r dev-project-app xxx.xx.0.0/16`
-3. Open web browser using the Private IP found in you SSH config (http:xxx.xx.xx.xx:3000) 
+- The library doesn't handle sensitive data directly, but users should be cautious about the content they process.
+- No external API calls are made by the library.
+
+## Scalability
+
+The `simple_evaluation` function uses `concurrent.futures.ProcessPoolExecutor` for parallel processing, allowing it to scale with available CPU cores.
+
+## Limitations
+
+- The library is designed for text processing and may not handle other data types effectively.
+- Performance may degrade with extremely large input sizes due to memory constraints.
+
+## Future Improvements
+
+1. Implement more advanced tokenization methods
+2. Add support for additional evaluation metrics
+3. Optimize memory usage for large inputs
+
+For any questions or issues regarding the architecture, please open an issue on the GitHub repository.

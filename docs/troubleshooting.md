@@ -1,35 +1,44 @@
 # Troubleshooting
 
-## Unit Testing
+## Common Issues
 
-### How-to-Guide
-``` @TODO: Fill with steps to run unit tests ```
+### ImportError: No module named 'ratchada_utils'
 
-```sh
-{command}
-{command}
+Make sure you have installed the package correctly. Try reinstalling:
+
+```zsh
+pip uninstall ratchada_utils
+pip install ratchada_utils
 ```
 
-### Code Coverage
-``` @TODO: Update command and data ```
+### TypeError when using tokenize_text
 
-To check code coverage, run: `pytest --cov=src --cov-report term-missing test/`
-
-```
-Name                 Stmts   Miss  Cover   Missing
-----------------------------------------------------------
-src/config.py        46      0     100%
-src/script.py        84      33    61%     25-46, 60-62, 80-81, 145, 173-186, 207-213
-----------------------------------------------------------
-TOTAL                130     33    75%
-
-```
-
+Make sure you're passing the correct type of arguments to the function. The `text` parameter should be a string, and `pred` should be a boolean.
 
 ## Debugging
 
-### Logs Location
-``` @TODO: Fill with links, paths, etc to logs ```
+If you encounter any issues, you can enable debug logging:
 
-### Common Issues
-``` @TODO: Add if there are any ```
+```python
+import logging
+logging.basicConfig(level=logging.DEBUG)
+```
+
+Then run your code, and you'll see more detailed logging output.
+
+## Reporting Issues
+
+If you encounter a bug or have a feature request, please open an issue on our GitHub repository.
+When reporting an issue, please include:
+
+- A clear description of the problem
+- Steps to reproduce the issue
+- Your operating system and Python version
+- The version of ratchada_utils you're using
+
+## Getting Help
+If you need help using ratchada_utils, you can:
+
+- Check the documentation
+- Open an issue on GitHub
+- Reach out to the maintainers directly (contact information in README)

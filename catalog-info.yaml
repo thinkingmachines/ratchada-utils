@@ -1,38 +1,29 @@
-# See https://backstage.io/docs/features/software-catalog/descriptor-format for full catalog-info.yml configurations.
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-  name: new-tm-project
-  title: Name of New Project
-  description: Description of the new project
+  name: ratchada-utils
+  title: Ratchada Utils
+  description: A Python library for text processing and utilities related to the Ratchada Whisper model.
   annotations:
     backstage.io/techdocs-ref: dir:.
-    github.com/project-slug: thinkingmachines/github-project-id #github project id
-  tags: # see doc for list of tags: https://docs.google.com/document/d/1PT97wDuj31BZo87SKSw0YSPvRVzunh1lAJ4I4nPctBI/edit#heading=h.u8qvx8avf6he
-    - internal
-  links:
-    - url: https://thinkdatasci.slack.com/archives/C021699RE7K
-      title: Slack - Foundations Engineering Channel
-      icon: chat # see https://backstage.io/docs/reference/core-app-api.appicons for all icons #Edit urls with the respective urls
-#     - url: 
-#       title: Asana / JIRA / Scrum Board / Us
-#       icon: dashboard
-#     - url: 
-#       title: Wiki
-#       icon: docs
-#     - url: 
-#       title: Onboarding Document
-#       icon: docs
-#     - url:
-#       title: Runn
-#       icon: user
-#     - url: (insert retro output link here, this is not visible to anyone apart from attendees)
-#       title: Parabol - Phase 1 Sprint 1 Retro
-#       icon: dashboard
-#     - url:
-#       title: Meeting Notes
-#       icon: docs
+    github.com/project-slug: thinkingmachines/ratchada-utils
+  tags:
+    - python
+    - nlp
+    - text-processing
+    - open-source
+    - pypi-package
 spec:
-  owner: user:tm-zol-lacanilao #Put your git username here or else ill own it >:(
-  type: internal
-  lifecycle: development # Maybe Switch to retainer once transferred to dopes but switch to production once live
+  type: library
+  lifecycle: development
+  owner: thinkingmachines/set-team
+  system: speech-to-text-tools
+  dependsOn:
+    - resource:pypi-registry
+  providesApis:
+    - ratchada-utils-api
+  definition:
+    $text: |
+      Main functions:
+      - tokenize_text(text: str, pred: bool = False) -> List[str]
+      - simple_evaluation(preds: List[str], actuals: List[str]) -> pd.DataFrame

@@ -1,4 +1,4 @@
-site_name: 'Project Documentation' # @TODO: Replace with Title
+site_name: 'PyPI Package Documentation'
 
 nav:
   - Introduction: 'README.md'
@@ -9,8 +9,9 @@ nav:
     - Deployment: deployment.md
     - Troubleshooting: troubleshooting.md
   - 'Product / Milestone Documentation':
-    - 'Feature A': './features/example.md'
-    - 'Feature B': './features/example.md'
+    - 'Installation Guide': './features/installation_guide.md'
+    - 'Usage Examples': './features/usage_examples.md'
+    - 'API Reference': './features/api_reference.md'
 
 plugins:
   - techdocs-core
